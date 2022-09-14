@@ -11,24 +11,27 @@ from os import getenv
 
 class test_basemodel(unittest.TestCase):
     """ """
-    
+
     def __init__(self, *args, **kwargs):
         """ """
         super().__init__(*args, **kwargs)
         self.name = 'BaseModel'
         self.value = BaseModel
+
     @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db',
                      "can't run if storage is file")
     def setUp(self):
         """ """
         pass
+
     @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db',
                      "can't run if storage is file")
     def tearDown(self):
         try:
             os.remove('file.json')
-        except:
+        except Exception:
             pass
+
     @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") == 'db',
                      "can't run if storage is file")
     def test_default(self):
@@ -88,13 +91,12 @@ class test_basemodel(unittest.TestCase):
         n = {None: None}
         with self.assertRaises(TypeError):
             new = self.value(**n)
-            
 
     def test_kwargs_one(self):
         """ """
         n = {'Name': 'test'}
         new = self.value(**n)
-        self.assertEqual(new.Name,'test')
+        self.assertEqual(new.Name, 'test')
 
     def test_id(self):
         """ """

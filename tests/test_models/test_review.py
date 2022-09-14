@@ -16,7 +16,7 @@ class test_review(test_basemodel):
     def test_place_id(self):
         """ """
         new = self.value()
-        new.place_id ='placeholder'
+        new.place_id = 'placeholder'
         self.assertEqual(type(new.place_id), str)
 
     def test_user_id(self):

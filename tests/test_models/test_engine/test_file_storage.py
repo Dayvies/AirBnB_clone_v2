@@ -22,7 +22,6 @@ import sys
 class storageTest(unittest.TestCase):
     """Testing storage access"""
 
-   
     def test_newobj(self):
         """test self.__ojects in filestorage"""
         storage = FileStorage()
@@ -37,12 +36,11 @@ class storageTest(unittest.TestCase):
         """if file does not exist"""
         storage = FileStorage()
         if exists('file.json'):
-                os.remove('file.json')
+            os.remove('file.json')
         storage.reload()
         z = storage.all()
         self.assertEqual(z, {})
-        
-    
+
     def help_test_all(self, classname):
         """Helper tests all() method for classname."""
         storage = FileStorage()
@@ -78,18 +76,21 @@ class storageTest(unittest.TestCase):
     def test_5_all_review(self):
         """Tests all() method for Review."""
         self.help_test_all("Review")
+
     def test_5_all_no_args(self):
         """Tests all() with no arguments."""
         with self.assertRaises(TypeError) as e:
             FileStorage.all()
         msg = "all() missing 1 required positional argument: 'self'"
         self.assertEqual(str(e.exception), msg)
+
     def test_5_all_excess_args(self):
         """Tests all() with too many arguments."""
         with self.assertRaises(TypeError) as e:
-            FileStorage.all(self,State,98)
+            FileStorage.all(self, State, 98)
         msg = "all() takes from 1 to 2 positional arguments but 3 were given"
         self.assertEqual(str(e.exception), msg)
+
     def help_test_new(self, classname):
         """Helps tests new() method for classname."""
         storage = FileStorage()
@@ -98,6 +99,7 @@ class storageTest(unittest.TestCase):
         key = "{}.{}".format(type(o).__name__, o.id)
         self.assertTrue(key in FileStorage._FileStorage__objects)
         self.assertEqual(FileStorage._FileStorage__objects[key], o)
+
     def test_5_new_base_model(self):
         """Tests new() method for BaseModel."""
         self.help_test_new("BaseModel")
@@ -125,6 +127,7 @@ class storageTest(unittest.TestCase):
     def test_5_new_review(self):
         """Tests new() method for Review."""
         self.help_test_new("Review")
+
     def test_5_new_no_args(self):
         """Tests new() with no arguments."""
         storage = FileStorage()
@@ -132,6 +135,7 @@ class storageTest(unittest.TestCase):
             storage.new()
         msg = "new() missing 1 required positional argument: 'obj'"
         self.assertEqual(str(e.exception), msg)
+
     def test_5_new_excess_args(self):
         """Tests new() with too many arguments."""
         storage = FileStorage()
@@ -140,17 +144,19 @@ class storageTest(unittest.TestCase):
             storage.new(b, 98)
         msg = "new() takes 2 positional arguments but 3 were given"
         self.assertEqual(str(e.exception), msg)
+
     def help_test_save(self, classname):
         """Helps tests save() method for classname."""
-        
+
         if exists('file.json'):
-                os.remove('file.json')
+            os.remove('file.json')
         storage = FileStorage()
         o = eval(classname)()
         storage.new(o)
         key = "{}.{}".format(type(o).__name__, o.id)
         storage.save()
         self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
+
     def test_5_save_base_model(self):
         """Tests save() method for BaseModel."""
         self.help_test_save("BaseModel")
@@ -178,6 +184,7 @@ class storageTest(unittest.TestCase):
     def test_5_save_review(self):
         """Tests save() method for Review."""
         self.help_test_save("Review")
+
     def test_5_save_no_args(self):
         """Tests save() with no arguments."""
         with self.assertRaises(TypeError) as e:
@@ -191,11 +198,12 @@ class storageTest(unittest.TestCase):
             FileStorage.save(self, 98)
         msg = "save() takes 1 positional argument but 2 were given"
         self.assertEqual(str(e.exception), msg)
+
     def help_test_reload(self, classname):
         """Helps test reload() method for classname."""
         storage = FileStorage()
         if exists('file.json'):
-                os.remove('file.json')
+            os.remove('file.json')
         storage.reload()
         self.assertEqual(storage.all(), {})
         o = eval(classname)()
@@ -204,6 +212,7 @@ class storageTest(unittest.TestCase):
         storage.save()
         storage.reload()
         self.assertEqual(o.to_dict(), storage.all()[key].to_dict())
+
     def test_5_reload_base_model(self):
         """Tests reload() method for BaseModel."""
         self.help_test_reload("BaseModel")
@@ -231,11 +240,12 @@ class storageTest(unittest.TestCase):
     def test_5_reload_review(self):
         """Tests reload() method for Review."""
         self.help_test_reload("Review")
+
     def help_test_reload_mismatch(self, classname):
         """Helps test reload() method for classname."""
         storage = FileStorage()
         if exists('file.json'):
-                os.remove('file.json')
+            os.remove('file.json')
         storage.reload()
         self.assertEqual(storage.all(), {})
         o = eval(classname)()
@@ -273,7 +283,7 @@ class storageTest(unittest.TestCase):
     def test_5_reload_mismatch_review(self):
         """Tests reload_mismatch() method for Review."""
         self.help_test_reload_mismatch("Review")
-    
+
     def test_5_reload_no_args(self):
         """Tests reload() with no arguments."""
         with self.assertRaises(TypeError) as e:
@@ -287,5 +297,7 @@ class storageTest(unittest.TestCase):
             FileStorage.reload(self, 98)
         msg = "reload() takes 1 positional argument but 2 were given"
         self.assertEqual(str(e.exception), msg)
+
+
 if __name__ == "__main__":
     unittest.main()

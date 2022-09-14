@@ -13,6 +13,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+
 def ev(val):
     """converts suitable arguments to int or float"""
     for i in val:
@@ -21,24 +22,24 @@ def ev(val):
         except Exception:
             yield i
 
+
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
 
     # determines prompt for interactive/non-interactive modes
-    prompt = '(hbnb) ' 
+    prompt = '(hbnb) '
 
     classes = {
-               'BaseModel': BaseModel, 'User': User, 'Place': Place,
-               'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
-              }
+        'BaseModel': BaseModel, 'User': User, 'Place': Place,
+        'State': State, 'City': City, 'Amenity': Amenity,
+        'Review': Review
+    }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
-             'number_rooms': int, 'number_bathrooms': int,
-             'max_guest': int, 'price_by_night': int,
-             'latitude': float, 'longitude': float
-            }
-
+        'number_rooms': int, 'number_bathrooms': int,
+        'max_guest': int, 'price_by_night': int,
+        'latitude': float, 'longitude': float
+    }
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
@@ -114,7 +115,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        
+
         if not args:
             print("** class name missing **")
             return
@@ -126,21 +127,19 @@ class HBNBCommand(cmd.Cmd):
         args2.pop(0)
         dict1 = {}
         for val in args2:
-                try1 = val.split('=')
-                try:
-                        value = json.loads(try1[1])
-                        if type(value) == str:
-                                
-                                value = value.replace('_',' ')
-                        dict1.update({try1[0]:value})
-                        setattr(object1,try1[0],value)
-                except Exception:
-                        pass
+            try1 = val.split('=')
+            try:
+                value = json.loads(try1[1])
+                if type(value) == str:
+
+                    value = value.replace('_', ' ')
+                dict1.update({try1[0]: value})
+                setattr(object1, try1[0], value)
+            except Exception:
+                pass
         print(object1.id)
         storage.new(object1)
         storage.save()
-
-        
 
     def help_create(self):
         """ Help information for the create method """
@@ -335,6 +334,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

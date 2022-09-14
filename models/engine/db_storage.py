@@ -25,7 +25,8 @@ class DBStorage:
     def __init__(self):
         """ initialising DBstorage"""
         self.__engine = create_engine(
-            'mysql+mysqldb://{}:{}@{}/{}'.format(user, password, host, database), pool_pre_ping=True)
+            'mysql+mysqldb://{}:{}@{}/{}'.
+            format(user, password, host, database), pool_pre_ping=True)
         if env == 'test':
             meta = MetaData(self.__engine)
             meta.reflect()
@@ -59,8 +60,8 @@ class DBStorage:
             for obj in self.__session.query(cls).all():
                 oblist.append(obj)
         for obj in oblist:
-                id = ("{}.{}".format(type(obj).__name__,obj.id))
-                dict1.update({id:obj})
+            id = ("{}.{}".format(type(obj).__name__, obj.id))
+            dict1.update({id: obj})
         return dict1
 
     def new(self, obj):
@@ -88,4 +89,3 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(Session)
-        

@@ -13,7 +13,6 @@ from models import storage
 import MySQLdb
 
 
-
 class TestDBStorage(unittest.TestCase):
     '''this will test the DBStorage'''
 
@@ -35,7 +34,6 @@ class TestDBStorage(unittest.TestCase):
         if getenv("HBNB_TYPE_STORAGE") == "db":
             self.db.close()
 
-
     @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'db',
                      "can't run if storage is file")
     def test_attributes_DBStorage(self):
@@ -47,6 +45,7 @@ class TestDBStorage(unittest.TestCase):
         self.assertTrue(hasattr(DBStorage, 'save'))
         self.assertTrue(hasattr(DBStorage, 'delete'))
         self.assertTrue(hasattr(DBStorage, 'reload'))
+
     @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'db',
                      "can't run if storage is file")
     def test_all_DBStorage(self):
@@ -83,6 +82,7 @@ class TestDBStorage(unittest.TestCase):
         s.save()
         nb1 = self.cursor.execute("SELECT COUNT(*) FROM states")
         self.assertEqual(nb1 - nb, 0)
+
     @unittest.skipIf(getenv("HBNB_TYPE_STORAGE") != 'db',
                      "can't run if storage is file")
     def test_reload(self):
