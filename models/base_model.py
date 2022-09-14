@@ -45,6 +45,9 @@ class BaseModel:
         if '_sa_instance_state' in dict2:
             del dict2['_sa_instance_state']
         return '[{}] ({}) {}'.format(cls, self.id, dict2)
+    def __repr__(self):
+        """string representation"""
+        return self.__str__()
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""

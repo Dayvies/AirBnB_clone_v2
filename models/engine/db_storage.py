@@ -17,7 +17,7 @@ database = os.getenv("HBNB_MYSQL_DB")
 env = os.getenv("HBNB_ENV")
 
 
-class DBstorage:
+class DBStorage:
     """mysql file storage"""
     __engine = None
     __session = None
