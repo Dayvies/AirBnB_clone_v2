@@ -24,7 +24,6 @@ class BaseModel:
             self.updated_at = datetime.now()
 
         else:
-            print(kwargs)
             for k, v in kwargs.items():
                 if k == 'updated_at' or k == 'created_at':
                     v = datetime.strptime(v,
