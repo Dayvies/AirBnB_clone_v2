@@ -3,16 +3,12 @@
 import sqlalchemy
 from sqlalchemy.orm import scoped_session
 from sqlalchemy import (create_engine)
+from sqlalchemy import MetaData
 from models.base_model import Base
 from sqlalchemy.orm import sessionmaker
 import json
 import os
-from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.review import Review
+
 
 user = os.getenv("HBNB_MYSQL_USER")
 host = os.getenv("HBNB_MYSQL_HOST")
@@ -31,13 +27,18 @@ class DBstorage:
         self.__engine = create_engine(
             'mysql+mysqldb://{}:{}@{}/{}'.format(user, password, host, database), pool_pre_ping=True)
         if env == 'test':
-            meta = sqlalchemy.MetaData(self.__engine)
+            meta = MetaData(self.__engine)
             meta.reflect()
             meta.drop_all()
 
     def all(self, cls=None):
         """returns declared class or everything"""
-
+        from models.user import User
+        from models.place import Place
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.review import Review
         dict1 = {}
         oblist = []
         if cls is None:
@@ -51,6 +52,8 @@ class DBstorage:
             for obj in self.__session.query(Place).all():
                 oblist.append(obj)
             for obj in self.__session.query(Review).all():
+                oblist.append(obj)
+            for obj in self.__session.query(Amenity).all():
                 oblist.append(obj)
         else:
             for obj in self.__session.query(cls).all():
@@ -76,7 +79,12 @@ class DBstorage:
 
     def reload(self):
         """reloading self and initiating storage"""
-
+        from models.user import User
+        from models.place import Place
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.review import Review
         Base.metadata.create_all(self.__engine)
         Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(Session)

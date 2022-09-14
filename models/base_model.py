@@ -10,10 +10,10 @@ Base = declarative_base()
 class BaseModel:
     """A base class for all hbnb models"""
 
-    id = Column(String(60), 
+    id = Column(String(60),
                 primary_key=True, nullable=False, unique=True)
-    created_at = Column(DateTime, default=datetime.utcnow(),nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow(),nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
 
     def __init__(self, *args, **kwargs):
         """Instantiates a new model"""
@@ -22,22 +22,29 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            
+
         else:
-            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            del kwargs['__class__']
+            print(kwargs)
             for k, v in kwargs.items():
-                self.k = v
+                if k == 'updated_at' or k == 'created_at':
+                    v = datetime.strptime(v,
+                                          '%Y-%m-%dT%H:%M:%S.%f')
+                if k != '__class__':
+                  setattr(self, k, v)
+            if 'id' not in kwargs.keys():
+                self.id = str(uuid.uuid4())
+            if 'created_at' not in kwargs.keys():
+                self.created_at = datetime.now()
+            if 'updated_at' not in kwargs.keys():
+                self.updated_at = datetime.now()
+            
 
     def __str__(self):
         """Returns a string representation of the instance"""
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
         dict2 = dict(self.__dict__)
         if '_sa_instance_state' in dict2:
-                del dict2['_sa_instance_state']
+            del dict2['_sa_instance_state']
         return '[{}] ({}) {}'.format(cls, self.id, dict2)
 
     def save(self):
@@ -56,8 +63,9 @@ class BaseModel:
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
         if '_sa_instance_state' in dictionary:
-                del dictionary['_sa_instance_state']
+            del dictionary['_sa_instance_state']
         return dictionary
+
     def delete(self):
         """delete the current instance from the storage"""
         from models import storage
