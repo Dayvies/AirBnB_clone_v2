@@ -29,14 +29,13 @@ class BaseModel:
                     v = datetime.strptime(v,
                                           '%Y-%m-%dT%H:%M:%S.%f')
                 if k != '__class__':
-                  setattr(self, k, v)
+                    setattr(self, k, v)
             if 'id' not in kwargs.keys():
                 self.id = str(uuid.uuid4())
             if 'created_at' not in kwargs.keys():
                 self.created_at = datetime.now()
             if 'updated_at' not in kwargs.keys():
                 self.updated_at = datetime.now()
-            
 
     def __str__(self):
         """Returns a string representation of the instance"""
@@ -45,6 +44,7 @@ class BaseModel:
         if '_sa_instance_state' in dict2:
             del dict2['_sa_instance_state']
         return '[{}] ({}) {}'.format(cls, self.id, dict2)
+
     def __repr__(self):
         """string representation"""
         return self.__str__()

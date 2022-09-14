@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
-from models.base_model import BaseModel,Base
+from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, DateTime
 
 
@@ -22,10 +22,10 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
-                """get cities with same state_id as state"""
-                from models.__init__ import storage
-                list1 = []
-                for k, v in storage.all(City).items():
-                        if (v.state_id == self.id):
-                                list1.append(v)
-                return list1
+            """get cities with same state_id as state"""
+            from models.__init__ import storage
+            list1 = []
+            for k, v in storage.all(City).items():
+                if (v.state_id == self.id):
+                    list1.append(v)
+            return list1

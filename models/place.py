@@ -42,12 +42,12 @@ class Place(BaseModel, Base):
     amenity_ids = []
     if type1 == 'db':
         reviews = relationship('Review', backref="place",
-                              cascade="all, delete",
-                              passive_deletes=True)
+                               cascade="all, delete",
+                               passive_deletes=True)
         amenities = relationship(
-            'Amenity', secondary='place_amenity',back_populates='place_amenities', viewonly=False)
+            'Amenity', secondary='place_amenity', back_populates='place_amenities', viewonly=False)
     else:
-        
+
         @property
         def cities(self):
             """get cities with same state_id as state"""
@@ -56,22 +56,19 @@ class Place(BaseModel, Base):
                 if (v.place_id == self.id):
                     list1.append(v)
             return list1
+
         @property
         def amenities(self):
-                """ instances based on the attribute amenity_ids"""
-                list1 = []
-                for id in self.amenity_ids:
-                        for k, v in storage.all(Amenity).items():
-                                 if (v.place_id == self.id):
-                                         list1.append(v)
-                return list1
+            """ instances based on the attribute amenity_ids"""
+            list1 = []
+            for id in self.amenity_ids:
+                for k, v in storage.all(Amenity).items():
+                    if (v.place_id == self.id):
+                        list1.append(v)
+            return list1
+
         @amenities.setter
-        def amenities(self,obj):
-                """setter on amenity_ids"""
-                if (type(obj) == Amenity):
-                        self.amenity_ids.append(obj.id)
-
-
-
-
-        
+        def amenities(self, obj):
+            """setter on amenity_ids"""
+            if (type(obj) == Amenity):
+                self.amenity_ids.append(obj.id)
