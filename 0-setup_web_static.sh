@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #setting up nginx
 if [ -x "$(command -v nginx)" ]; then
-      continue
+      true
 else
         apt update
         apt-get -y install nginx

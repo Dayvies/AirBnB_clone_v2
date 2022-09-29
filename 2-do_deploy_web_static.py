@@ -19,17 +19,21 @@ def do_deploy(archive_path):
         return False
     if sudo("mkdir -p /data/web_static/releases/{}/".format(file)).failed:
         return False
-    if sudo("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".format(pth, file)).failed:
+    if sudo("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
+            format(pth, file)).failed:
         return False
     if sudo("rm /tmp/{}".format(pth)).failed:
         return False
-    if sudo("mv /data/web_static/releases/{}/web_static/* /data/web_static/releases/{}/".format(file, file)).failed:
+    if sudo("mv /data/web_static/releases/{}/web_static/*\
+                 /data/web_static/releases/{}/".format(file, file)).failed:
         return False
-    if sudo("rm -rf /data/web_static/releases/{}/web_static".format(file)).failed:
+    if sudo("rm -rf /data/web_static/releases/{}/web_static"
+            .format(file)).failed:
         return False
     if sudo("rm -rf /data/web_static/current").failed:
         return False
-    if sudo("ln -sf /data/web_static/releases/{}/ /data/web_static/current".format(file)).failed:
+    if sudo("ln -sf /data/web_static/releases/{}/ /data/web_static/current"
+            .format(file)).failed:
         return False
-    print("New version deployed")
+    print("New version deployed!")
     return True

@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Fabric script that generates a .tgz archive from the contents of the web_static folder"""
+"""Fabric script that generates a .tgz archive from 
+the contents of the web_static folder"""
 from fabric.api import local, run
 from datetime import datetime
 import os
@@ -15,5 +16,9 @@ def do_pack():
         now.year, now.month, now.day, now.hour, now.minute, now.second)
     print("Packing web_static to {}".format(file))
     local('tar -cvzf {} web_static'.format(file))
-    file_size = os.path.getsize(file)
+    try:
+        file_size = os.path.getsize(file)
+    except Exception:
+        return None
     print("web_static packed: {} -> {}Bytes".format(file, file_size))
+    return file
