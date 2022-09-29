@@ -13,7 +13,7 @@ def do_pack():
 
     file = "versions/web_static_{}{:02d}{:02d}{:02d}{:02d}{:02d}.tgz".format(
         now.year, now.month, now.day, now.hour, now.minute, now.second)
-    print ("Packing web_static to {}".format(file))
+    print("Packing web_static to {}".format(file))
     local('tar -cvzf {} web_static'.format(file))
     file_size = os.path.getsize(file)
-    print ("web_static packed: {} -> {}Bytes".format(file,file_size))
+    print("web_static packed: {} -> {}Bytes".format(file, file_size))
