@@ -13,5 +13,7 @@ def do_clean(number=0):
     if number == '0':
         number = '1'
     number = int(number) + 1
-    local("(cd ./versions && ls -t | tail -n +{}| xargs rm -rf)".format(number))
-    run("(cd /data/web_static/releases && sudo ls -t .| tail -n +{}|xargs sudo rm -rf)".format(number))
+    local("(cd ./versions && ls -t | tail -n +{}| xargs rm -rf)"
+          .format(number))
+    run("(cd /data/web_static/releases && sudo ls -t .|\
+         tail -n +{}|xargs sudo rm -rf)".format(number))
