@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """Fabric script that deploys and extracts files"""
 import os
 import fabric
@@ -37,6 +38,9 @@ def do_deploy(archive_path):
     print("New version deployed!")
     return True
 
+
+@fabric.decorators.hosts("localhost")
+@runs_once
 def do_pack():
     """Fabric script that compresses a file"""
     now = datetime.now()
