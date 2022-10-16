@@ -30,7 +30,7 @@
 
 .popover {
 	list-style-type: none;
-	display: none;
+	display: flex;
 	background-color: #FAFAFA;
 	width: 100%;
 
@@ -42,15 +42,28 @@
 	border-radius: 4px;
         overflow: scroll;
         max-height: 300px;
+        opacity: 100%;
+        z-index: 1;
+        visibility: hidden;
 
 }
 
 .locations:hover .popover {
 	display: inline-block;
+        position: relative;
+        opacity: 1.0;
+        z-index: 1;
+        visibility: visible;
+        z-index: 1;
+        
 }
 
 .amenities:hover .popover {
 	display: inline-block;
+        position: relative;
+        z-index: 1;
+        visibility: visible;
+
 }
 
 ul {
