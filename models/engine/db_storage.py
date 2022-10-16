@@ -26,7 +26,8 @@ class DBStorage:
         """ initialising DBstorage"""
         self.__engine = create_engine(
             'mysql+mysqldb://{}:{}@{}/{}'.
-            format(user, password, host, database), encoding='utf8',pool_pre_ping=True)
+            format(user, password, host, database),
+            encoding='utf8', pool_pre_ping=True)
         if env == 'test':
             meta = MetaData(self.__engine)
             meta.reflect()
@@ -89,6 +90,7 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(Session)
+
     def close(self):
         """closing the scoped_session like thread"""
         self.__session.remove()

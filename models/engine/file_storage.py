@@ -63,7 +63,7 @@ class FileStorage:
         if id in FileStorage.__objects:
             del FileStorage.__objects[id]
             self.save()
+
     def close(self):
         """calls reload, made to match dbstorage"""
         self.reload()
-        

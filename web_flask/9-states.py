@@ -72,7 +72,7 @@ def cities_by_states():
 def states_id(id=None):
     """show states or city states with id"""
     dict2 = {}
-    if (id == None):
+    if id is None:
         for k, v in storage.all(State).items():
             dict2.update({v.name: v.id})
         return (render_template('9-states.html', dict2=dict2, num=0))
