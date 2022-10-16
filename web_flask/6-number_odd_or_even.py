@@ -37,6 +37,7 @@ def numberTemplate(n):
     """render template if conditions are met"""
     return (render_template('5-number.html', n=n))
 
+
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def number_odd_even(n):
     """render template if conditions are met"""

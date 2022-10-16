@@ -14,7 +14,7 @@ def hello():
 @app.route('/c/<text>', strict_slashes=False)
 def cisfun(text):
     """c/ route plus text specified"""
-    text= text.replace('_',' ')
+    text = text.replace('_', ' ')
     return ("C {}".format(text))
 
 

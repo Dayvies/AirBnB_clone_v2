@@ -25,10 +25,11 @@ def pythonisfun(text="is cool"):
     text = text.replace('_', ' ')
     return ("Python {}".format(text))
 
-@app.route('/number/<int:n>',strict_slashes=False)
+
+@app.route('/number/<int:n>', strict_slashes=False)
 def numberOnly(n):
-        """number/int routes only if end is """
-        return ("{} is a number".format(n))
+    """number/int routes only if end is """
+    return ("{} is a number".format(n))
 
 
 if __name__ == "__main__":
