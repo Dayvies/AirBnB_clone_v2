@@ -4,6 +4,7 @@
 from flask import Flask, render_template
 from models import storage
 from models.state import State
+from models.amenity import Amenity
 app = Flask(__name__)
 
 
@@ -85,16 +86,21 @@ def states_id(id=None):
             dict2.update({v.name: [v.id, dict3]})
             return (render_template('9-states.html', dict2=dict2, num=1))
     return (render_template('9-states.html', dict2=dict2, num=2))
-@app.route('/hbnb_filters/',strict_slashes=False)
+
+
+@app.route('/hbnb_filters/', strict_slashes=False)
 def hbnb_filters():
-        """integrate with hbnb pages"""
-        dict2 = {}
-        for k, v in storage.all(State).items():
-                dict3 = {}
-                for item in v.cities:
-                        dict3.update({item.name: item.id})
-                dict2.update({v.name: [v.id, dict3]})
-        return (render_template('10-hbnb_filters.html', dict2=dict2))
+    """integrate with hbnb pages"""
+    dict2 = {}
+    dict4 = {}
+    for k, v in storage.all(State).items():
+        dict3 = {}
+        for item in v.cities:
+            dict3.update({item.name: item.id})
+        dict2.update({v.name: [v.id, dict3]})
+    for k, v in storage.all(Amenity).items():
+        dict4.update({v.name: v.id})
+    return (render_template('10-hbnb_filters.html', dict2=dict2, dict4=dict4))
 
 
 @ app.teardown_appcontext

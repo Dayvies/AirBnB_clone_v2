@@ -52,7 +52,6 @@ def states_list():
     dict2 = {}
     for k, v in storage.all(State).items():
         dict2.update({v.name: v.id})
-    print(dict2)
     return (render_template('7-states_list.html', dict2=dict2))
 
 
