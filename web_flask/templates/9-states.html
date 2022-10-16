@@ -10,7 +10,7 @@
         <H1>State: {{ item|e }}</H1>
         <H3>Cities:</H3>
         <UL>{% for item2, value2 in value[1]|dictsort %}
-                        <LI>{{ value2|e }}: <B>{{ item2|e }}</B></LI>
+                <LI>{{ value2|e }}: <B>{{ item2|e }}</B></LI>
         {% endfor %}{% endfor %}</UL>
         {% else %}
         <H1>States</H1>
